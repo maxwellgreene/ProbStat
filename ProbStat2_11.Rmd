@@ -1,0 +1,99 @@
+---
+title: "ProbStat 1"
+output: html_notebook
+---
+
+Class February 11th
+
+#List of Commands
+##Factorial
+```{r}
+factorial(10)
+```
+##Choose
+```{r}
+choose(10,4)
+```
+
+#Distributions
+##Binomial
+###rbinom
+rbinom(n, size, prob)  
+
+parameter |  meaning
+--------- | ----------------
+n         |  number of observations
+size      |  number of trials
+prob      |  probability of success on each trial
+  
+```{r}
+rbinom(5,10,.25)
+```
+These results show the results of an experiment with 5 observations, each observation being the number of successes out of 10 trials, each with a .25 probability of success.   
+Example:
+  Let's do an experiment where we flip a coin 20 times.
+```{r}
+rbinom(25,1,.5)
+```
+###dbinom
+dbinom(x, size, prob, log= FALSE)  
+
+parameter |  meaning
+--------- | ----------------
+n         |  number of observations
+size      |  number of trials
+prob      |  probability of success on each trial
+
+
+#Section 3.3 Discrete RAndom Variables
+**Definition** Let $S$ be a discrete sample space. A function $X$ tha sends each outcome $s \in S$ to a real number $(X: S \rightarrow \mathcal{R})$ is said to be a random variable.
+*Example*   
+(a) Consider the experiment of flipping a coin four times.
+ $(S = \{HHHH,HHHT,HHTH,HTHH,...,TTTT\})$, with $|S|=2^4=16$. Then if $X:S\rightarrow \mathcal{R}$ is the function $X(s) =$ (number of heads in outcome s) then $X$ is a random variable.  
+ (b) consider rolling two dice. Let $X$ be the function from $S=\{(1,1),(1,2)...\}$ such that $X(s)$ is the sum of the rolled values.
+
+**Definition** Suppose tjat $S$ is a finite or countably infinite sample space. Let $p$ be a real-valued function defined for each outcome $s\in S$ such that   
+  (a) $0 \leq P(s) \forall s \in S$   
+  (b) $\Sigma_{s \in S} P(s) = 1$ imples that $P(s) \leq 1$   
+  Any probability satistfying these conditions is known as a **Probability Mass function (PMF)**   
+  Example: Binomial and Hypergeometric are PMF's   
+  Example: Let $S=\{1,2,3,4,5,6\}$ and $\mathcal(P)(s)=\frac{1}{6}\forall s\in S$ 
+      Claim: $p$ is a PMF!   
+      Check: $p(s) \geq 0$ and $\Sigma_{s \in S}P(s)=1$
+      
+Note: If $p(s)$ PMF then if we define for any event $A \in S$, $\mathcal(P)(s) = \Sigma_{s \in A}P(s)$ then $\mathcal(P)$ is a probaility function on S.   
+
+Example: $S = \{1,2,3,4,5,6\}$ (rolls of dice), $\mathcal(P)(s) =\frac{1}{6}\forall s \in S$.   
+Let $A$ be the event that I roll an even number, $S= \{2,4,6\}$, $$\mathcal(P)(A) = \Sigma_{s \in S}P(s)= P\{2\}+P\{4\}+P\{6\}$$ 
+   
+Example: Suppose we toss a biased coin with a probability of head $\mathcal{P}(H) = \frac{2}{3}$ until the first time a head appears. What are the chances of that happening on an even numbered toss? $$S=\{H,TH,TTH,TTTH...\}$$ $$A=\{TH,TTTH...\}$$
+
+What is a good PMF?
+$\mathcal{P}(s)=(1-\frac{2}{3})^{s-1}\frac{2}{3}$
+  
+  
+  
+#Coin Toss Experiment
+```{r}
+NumExp <- 1000
+NumFlip <- 10
+prob <- .5
+w <- numeric(NumExp)
+
+for (i in 1:NumExp)
+{w[i]<-sum(rbinom(NumFlip,size=1,prob=prob))}
+
+w<- as.data.frame(w)
+names(w)<-"Heads"
+head(w)
+
+wCount<-count(w,Heads)
+wCount<-mutate(wCount,Percent=n/NumExp)
+
+wCount
+
+
+ggplot(data=wCount)+geom_histogram(mapping=aes(x=Heads,y=n))
+```
+
+

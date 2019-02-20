@@ -1,0 +1,28 @@
+---
+title: "Distributions, Probability & Statistics"
+output: html_notebook
+---
+
+
+
+#Continuous Random Variables
+For a continuous random variable $Y$ with pdf $f_{y}(t)$, if
+$F_{y}(y)=\int_{-\infty}^{y}f_{y}(t)dt$ is cdf then $F'_{y}(y)=f_{y}(y)$ by FTC part 1 wherever $f_{y}$ is continuous.  
+**Example** Suppose $Y:S\rightarrow R$ is a continuous random variable with pdf $f_{y}(t)=\lambda e^{-\lambda t}$ if t>0.
+(HW: Show $\int_{-\infty}^{\infty}f_{y}(y)dt=1$)  
+
+Then ...see notes...
+
+
+Important properties of CDF's  
+
+1. $P(X>s) = 1-F_{x}(s)$ because $(X>s)=(X\leq s)^{c}$
+2. $P(r\leq X \leq s)= F_{x}(s)-F{x}(r)$, this is easy to see in a continuous case because $P(r \leq X \leq s)=\int_{r}^{s}f_{x}(t)dt=\int_{r}^{s}F'_{x}(t)dt=F_{x}(s)-F_{x}(r)$
+3. $\lim_{y\to\infty}F_{y}=1$
+4. $\lim_{y\to 0}F_{y}=0$
+
+...Examples in notes...
+
+
+
+
