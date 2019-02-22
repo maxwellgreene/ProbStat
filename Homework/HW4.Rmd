@@ -120,7 +120,13 @@ c\int_{0}^{\infty}e^{-t}dt\\
 $$
 
 (b) Find the cdf of X.
-
+$$
+g(t) =
+  \begin{cases}
+    \int_{0}^{x}e^{-t} & \text{if t >= 0} \\
+    0 & \text{otherwise} \\
+  \end{cases}
+$$
 
 (c) Find P(1 < X < 3).
 $$
@@ -196,14 +202,19 @@ ggplot(data=df,aes(x=y))+stat_function(fun=log_func) + ylab("F(y)")
 #Question (2.7.8)
 **Five fair dice are rolled. What is the probability that the faces showing constitute a "full house"-that is, three faces show one number and two faces show a second number?**
   
-This will be equal to the probability of rolling a number $(1)$ times the rolling the same number two more times $(1/6)(1/6)$ then times the probability of rolling a different number $(5/6)$ times rolling the second number again $(1/6)$.
+This will be equal to the probability of rolling a number $(1)$ times the rolling the same number two more times $(1/6)(1/6)$ then times the probability of rolling a different number $(5/6)$ times rolling the second number again $(1/6)$. However, this is assuming they have to be rolled in a particular order. 
+First, the total number of ways to organize a full house, given three of one number and two of another, is $\frac{5!}{3!2!}$ because the order within the groups of matching numbers do not matter. worded differently, it is $\binom{5}{3}$ because you are pickign a place for the first 3, the the other 2 have their designated spots.
 
 $$
-(1)(1/6)(1/6)(5/6)(1/6)=\frac{5}{6^3} \approx .0231
+\begin{aligned}
+P(FH) &= (1)(1/6)(1/6)(5/6)(1/6)*\binom{5}{3} \\
+&=\frac{5}{6^4}*\frac{5!}{3!2!} = \frac{5^2*2}{6^4}\\
+& \approx 0.0386
+\end{aligned}
 $$
 
 ```{r}
-5/(6^3)
+(5/6^4)*choose(5,3)
 ```
 
 #Question (3.2.8)
@@ -239,35 +250,30 @@ Since this model considers unordered selections, we should divide this value by 
 #Question (3.3.10)
 **Urn I and urn II each have two red chips and two white chips. Two chips are drawn simultaneously from each urn. Let $X_1$ be the number of red chips in the first sample and $X_2$ the number of red chips in the second sample. Find the pdf of $X_1$ + $X_2$.**
 
-I will utilize the hypergeometric distribution here.
+k     | $P_{X_{1}+X_{2}}(k)$
+------|----------
+0     | 1/36
+1     | 8/36
+2     | 18/36
+3     | 8/36
+4     | 1/36
+$\sum$| 36/36
 
-$$
-\begin{aligned}
-P(X_1)+P(X_2) =  P(X_1,X_2) &= 
-\frac{\binom{r_1}{X_1}\binom{w_1}{n_1-X_1}}{\binom{N_1}{n_1}} + 
-\frac{\binom{r_2}{X_2}\binom{w_2}{n_2-X_2}}{\binom{N_2}{n_2}} \\
-&=\frac{\binom{2}{X_1}\binom{2}{2-X_1}}{\binom{4}{2}} +
-\frac{\binom{2}{X_2}\binom{2}{2-X_2}}{\binom{4}{2}} \\
-P(X_1,X_2)&=\frac{\binom{2}{X_1}^2+\binom{2}{X_2}^2}{6}
-\end{aligned}
-$$
-
-```{r}
+```{r,eval=FALSE,include=FALSE}
 px1x2 <- function(x1,x2)
 {
   return((choose(4,x1)*choose(4,x2))/choose(8,4))
 }
-x1 <- 0:2
-x1 <- rep(x1,length(x1))
+x <- 0:2
+x1 <- rep(x,length(x))
 x2 <- 0:2
-x2 <- rep(x2,each=length(x1))
+x2 <- rep(x2,each=length(x))
 data <- data.frame(x1=x1,x2=x2,sum=x1+x2,x1x2=px1x2(x1,x2))
 #table(data$sum,data$x1x2)
 sum(data$x1x2)
+data
 ggplot(data)+ geom_bar(aes(x=sum,y=x1x2),stat="identity")
 ```
-
-
 
 #Question (3.4.12)
 **The cdf for a random variable $Y$ is defined by $F_Y (y) = 0$ for $y < 0$; $F_Y (y) = 4y^3 - 3y^4$ for $0 \leq y \leq 1$; and $FY (y) = 1$ for $y > 1$. Find $P(1/4 \leq Y \leq 3/4)$ by integrating $f_Y (y)$.**
