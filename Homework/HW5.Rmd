@@ -1,5 +1,5 @@
 ---
-title: "Prob & Stat HW4"
+title: "Prob & Stat HW5"
 output: pdf_document
 author: "Maxwell Greene"
 ---
