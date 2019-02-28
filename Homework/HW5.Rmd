@@ -1,0 +1,147 @@
+---
+title: "R Notebook"
+output: pdf_document
+---
+
+```{r,include=FALSE,message=FALSE}
+library(tidyverse)
+library(VGAM)
+```
+
+#Question #7
+Rayleigh Distribution:
+$$
+f(x)=\frac{x}{a^2}e^{\frac{x^2}{2a^2}}, 
+\hspace{5mm} \text{where} \hspace{5mm}a>0,0\leq x<\infty
+$$
+
+##(a)
+$$
+\int_{0}^{\infty} f(x)dx=
+\int_{0}^{\infty} \frac{x}{a^2}e^{-\frac{x^2}{2a^2}}dx
+$$
+Performing the u-substitution $u=\frac{x^2}{2a^2}$, $du=\frac{x}{a^2}dx$ gives
+$$
+\begin{aligned}
+\int_{0}^{\infty} f(x)dx
+&=\int_{0}^{\infty} e^{-u} du \\
+&=-e^{-u}\big|^{\infty}_{0} = -e^{-\frac{x^2}{2a^2}}\big|_{0}^{\infty}\\
+&=-e^{-\infty}+e^{0}=\boxed{1}
+\end{aligned}
+$$
+
+###(d)
+```{r,warning=FALSE,fig.width=4,fig.height=3}
+x<-seq(0,2,.01)
+y1<-drayleigh(x,scale=.1)
+y2<-drayleigh(x,scale=.5)
+y3<-drayleigh(x,scale=1)
+data<-data.frame(x=rep(x,3),
+  alpha=rep(c(1,2,3),3,each=length(x)),
+  y1=y1,y2=y2,y3=y3)
+ggplot(data) + 
+  geom_line(mapping=aes(x=x,y=y1))+
+  geom_line(mapping=aes(x=x,y=y2))+
+  geom_line(mapping=aes(x=x,y=y3))
+```
+
+#Question #8
+Expectation of Rayleigh Distribution given by
+$$
+E(R)=
+\int_{0}^{\infty} (x * f_{R}) dx=
+\int_{0}^{\infty} x \frac{x}{a^2}e^{\frac{x^2}{2a^2}}dx
+$$
+
+With $\sigma = 1$ the expected value is
+```{r,warning=FALSE}
+a<-1
+rayleighExpect <- function(x)
+{return(x*drayleigh(x,scale=a))}
+integrate(rayleighExpect,lower=0,upper=Inf)$value
+```
+Notably, this is approximately $\sigma \sqrt{\frac{\pi}{2}}$.
+```{r}
+a*sqrt(pi/2)
+```
+
+#Question #10
+Probability mass function of dice roll given by
+
+X      | P(X)
+-------|--------
+ 1     | 1/6
+ 2     | 1/6
+ 3     | 1/6
+ 4     | 1/6
+ 5     | 1/6
+ 6     | 1/6
+
+I'll write this in R as
+```{r}
+diceProb <- data.frame(value=1:6,prob=rep(1/6,6))
+```
+Now, we calculate the expacted value given by $\mu=\sum xP(x)$
+```{r}
+diceExpected <- sum(diceProb$value*diceProb$prob)
+diceExpected
+```
+
+And the variance given by $\sigma = \sum P(x)(x-\mu)^{2}$
+```{r}
+diceVariance<-sum(diceProb$prob*(diceProb$value-diceExpected)^2)
+diceVariance
+```
+
+#Question #11
+Expected Value:
+$$
+\begin{aligned}
+E(Y)&= \int_{-\infty}^{\infty}f_x(\frac{x-\mu}{\sigma})dx \\
+&= \frac{1}{\sigma}\int_{-\infty}^{\infty}x*f_xdx - 
+\frac{1}{\sigma}\int_{-\infty}^{\infty}\mu*f_xdx\\
+&= \frac{\mu}{\sigma} - \frac{\mu}{\sigma} = \boxed{0}
+\end{aligned} 
+$$
+$$
+\text{because} \int_{-\infty}^{\infty}x*f_xdx=\mu 
+\hspace{5mm} \text{and} \hspace{5mm}
+\int_{-\infty}^{\infty}f_xdx=1
+$$
+
+Variance:
+$$
+\begin{aligned}
+Var(Y) &= \int_{-\infty}^{\infty} f*(y-\mu)^2dx \\
+&= \frac{1}{\sigma^2} \int f * (x-\mu)^2dx 
+- \frac{2 \mu}{\sigma}\int f * (x-\mu)dx 
++ \mu^2 \int f dx  \\
+&=\frac{1}{\sigma^2}\int f* x^2 dx 
+- 2\mu\int f* x dx 
++ \mu^2\int f dx 
+-\frac{2\mu}{\sigma}(0)+\mu^2 \\
+&= \frac{\sigma^2}{\sigma^2} 
+- 2\mu^2 + \mu^2 + \mu^2 = \boxed{1}
+\end{aligned}
+$$
+
+
+
+#Question 3.5.8
+Calculate $E(Y)$ for the following pdf's:
+###(a)
+
+###(b)
+
+###(c)
+
+###(d)
+
+#Question 3.5.14
+
+
+#Question 3.5.30
+
+
+#Question 3.6.8
+
