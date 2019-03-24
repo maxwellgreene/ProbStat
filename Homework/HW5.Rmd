@@ -1,7 +1,8 @@
 ---
 title: "Prob & Stat HW5"
-output: pdf_document
 author: "Maxwell Greene"
+output:
+  pdf_document: default
 ---
 
 ```{r,include=FALSE,message=FALSE}

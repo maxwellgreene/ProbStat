@@ -1,0 +1,83 @@
+---
+title: "Prob & Stat HW8"
+output: pdf_document
+---
+
+#Question 1
+$X$, $Y$ independent random variables with $X$,$Y$ ~ $geom(p)$: $p_X(k)=p_Y(y)=p(1-p)^{k-1}, 0<p<1$
+
+If $W=X+Y$, show $$p_W(w)=(w-1)p^2(1-p)^{w-2}, w \geq 1 $$
+
+Hint: $p_W(w)=\sum_{\text{all }k} p_X(k) p_y(w-k)$  
+
+$$
+\begin{aligned}
+p_W(w)&=\sum_{\text{all }k} p_X(k) p_y(w-k)\\
+&=\sum_{\text{all }k} p(1-p)^{1-k} p(1-p)^{w-k-1}\\
+&=\sum_{\text{all }k} p^2(1-p)^{w-2}\\
+&=\boxed{(w-1)p^2(1-p)^{w-2}}
+\end{aligned}
+$$
+
+#Question 2
+Use $\Gamma(r)=(r-1)\Gamma(r-1)$ to prove $\Gamma(n)=(n-1)!$ if n is a positive integer. Hint: prove by induction.
+
+
+  $\Gamma(1) = 1$ and $0! = 1$, which verifies the equation for $n = 1$.
+Assuming $\Gamma(k) = (k-1)!$, $\Gamma(k+1)=k\Gamma(k)=k(k-1)!=k!$.
+
+
+#Question 3
+Prove that $\Gamma(\frac{1}{2})=\sqrt{\pi}$  
+$$
+\begin{aligned}
+1&=E(Z^2)\\
+&=\frac{\sqrt{2}}{\sqrt{\pi}}\int_{0}^{\infty}z^2e^{\frac{-z^2}{2}}dz\\
+&=\frac{\sqrt{2}}{\sqrt{\pi}}\int_{0}^{\infty}\frac{(2u)e^{-u}}{\sqrt{2}\sqrt{u}}du, u=\frac{z^2}{2}\\
+&=\frac{2}{\sqrt{\pi}}\int_{0}^{\infty}u^{(\frac{3}{2}-1)}e^{-u}du\\
+\sqrt{\pi}&=2\Gamma(\frac{3}{2})\\
+\sqrt{\pi}&= 2*\frac{1}{2}\Gamma(\frac{1}{2})\\
+&\boxed{\sqrt{\pi}=\Gamma(\frac{1}{2})}
+\end{aligned}
+$$
+
+#Question 4
+```{r}
+pnorm(1.33,0,1)-pnorm(-0.44,0,1)
+```
+```{r}
+pnorm(0.94,0,1)
+```
+```{r}
+1-pnorm(-1.48,0,1)
+```
+```{r}
+pnorm(-4.32,0,1)
+```
+
+#Question 5
+###Part (a)
+```{r}
+pnorm(2.07,0,1)-pnorm(0,0,1)
+```
+###Part (b)
+```{r}
+pnorm(-0.11,0,1)-pnorm(-0.64,0,1)
+```
+###Part (c)
+```{r}
+1-pnorm(-1.06,0,1)
+```
+###Part (d)
+```{r}
+pnorm(-2.33,0,1)
+```
+###Part (e)
+```{r}
+1-pnorm(4.61,0,1)
+```
+#Question 6
+```{r}
+qnorm(.75,0,1)-qnorm(.25,0,1)
+```
+
