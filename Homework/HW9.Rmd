@@ -1,0 +1,33 @@
+---
+title: "Max Greene HW9"
+output: html_notebook
+---
+#Question 1
+Sample size $n = 400$, proportion estimate $\hat{p}=0.52$.
+Use this to find confidence level of interval $(0.5,\infty)$ for population parameter $p$.
+
+#Question 2
+Random sample of 50 chocolates. $\hat{\mu}=20$mg and $\hat{\sigma}=4$mg.
+Find 90, 95, 99 percent confidence intervals for unknown mean $\mu$ using normal approximation.
+
+#Question 3
+Simulate sampling distribution of mean for $X_1,X_2, \ldots , X_{50},$ where each $X_i$ is a Poisson r.v. with $\lambda=2.3$.
+
+
+#Question 4
+Do the following problems from the book.
+###4.3.22
+
+###4.3.38
+
+###5.3.2
+
+###5.3.6
+
+###5.3.8
+
+###5.3.22
+
+###5.4.12
+
+###5.4.18
