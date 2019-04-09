@@ -1,0 +1,130 @@
+---
+title: "Max Greene HW10"
+output: pdf_document
+---
+
+#6.2.1
+In  problem  6.2.1  in  the  textbook,  use  the  given  information  to  compute  the  $(1-\alpha)100\%$ confidence interval.
+##a
+$H_0 : \mu=120$ versus $H_1 : \mu < 120 ; \bar{y}=114.2,n=25, \sigma =18, \alpha= 0.08$
+```{r}
+mu <- 120 
+y_bar <- 114.2
+n <- 25
+sigma <- 18
+alpha <- 0.08
+(z <- (y_bar-mu)/(sigma/sqrt(n)))
+(z_alpha_norm <- qnorm(0.08))
+(z_alpha_test <- qnorm(0.08))*(sigma/sqrt(n))+mu
+```
+
+##b
+$H_0 : \mu=42.9$ versus $H_1 : \mu \ne 42.9 ; \bar{y}=45.1,n=16, \sigma =3.2, \alpha= 0.01$
+
+```{r}
+mu <- 42.9
+y_bar <- 45.1
+n <- 16
+sigma <- 3.2
+alpha <- 0.01
+(z <- (y_bar-mu)/(sigma/sqrt(n)))
+(z_alpha_norm <- qnorm(c(alpha/2,1-alpha/2)))
+(z_alpha_test <- qnorm(c(alpha/2,1-alpha/2)))*(sigma/sqrt(n))+mu
+```
+
+##c
+$H_0 : \mu=14.2$ versus $H_1 : \mu > 14.2 ; \bar{y}=15.8 , n=9, \sigma = 4.1 , \alpha= 0.13$
+
+```{r}
+mu <- 14.2
+y_bar <- 15.8
+n <- 9
+sigma <- 4.1
+alpha <- 0.13
+(z <- (y_bar-mu)/(sigma/sqrt(n)))
+(z_alpha_norm <- qnorm(1-alpha))
+(z_alpha_test <- qnorm(1-alpha))*(sigma/sqrt(n))+mu
+```
+
+#6.2.2
+Random sample, 22 diagnosed. 
+
+Past ADD score $\mu_{ADD} = 95, \sigma_{ADD} = 15$.
+
+Use $\alpha = 0.06$. For what values of $\bar{y}$ should $H_0$ be rejected if $H_1$ is two-sided?
+
+```{r}
+mu <- 95
+sigma <- 15
+n <- 22
+alpha <- 0.06
+(z_alpha_norm <- qnorm(c(alpha/2,1-alpha/2)))
+(z_alpha_test <- qnorm(c(alpha/2,1-alpha/2)))*(sigma/sqrt(n))+mu
+```
+
+#6.2.3
+
+#6.2.4
+Population mean 32,500.
+15 sample drivers 33,800 on new tires. Assume $\sigma=4000$ for both cases.
+Can the company claim a statisticaly significant difference at $\alpha=0.05$?
+
+```{r}
+mu <- 32500
+sigma <- 4000
+n <- 15
+alpha <- 0.05
+(z_alpha_norm <- qnorm(1-alpha))
+mu
+(z_alpha_test <- qnorm(1-alpha))*(sigma/sqrt(n))+mu
+```
+
+#6.2.9
+
+#6.2.10
+Average blood pressure $\mu = 120, \sigma = 12$.
+Sample of $n=50$ women, $\mu = 125.2$.
+
+$H_0:\mu_{exam}\neq\mu_{norm}$ , $H_1:\mu_{exam}=\mu_{norm}$
+
+```{r}
+mu <- 120
+sigma <- 12
+n <- 50
+alpha <- 0.05
+(z_alpha_norm <- qnorm(1-alpha))
+(z_alpha_test <- qnorm(1-alpha))*(sigma/sqrt(n))+mu
+
+alpha <- 0.01
+(z_alpha_norm <- qnorm(1-alpha))
+(z_alpha_test <- qnorm(1-alpha))*(sigma/sqrt(n))+mu
+```
+
+This data shows a significant increase in heartrate with 99% confidence.
+
+#6.3.1
+
+#6.3.2
+
+#6.3.4
+
+#6.3.7
+
+#6.3.9
+
+#6.4.2
+
+#6.4.3
+
+#6.4.6
+
+#6.4.8
+
+#6.4.12
+
+#6.4.13
+
+#6.4.14
+
+
+
