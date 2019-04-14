@@ -1,10 +1,15 @@
 ---
 title: "Max Greene HW10"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
 ---
 
 #6.2.1
 In  problem  6.2.1  in  the  textbook,  use  the  given  information  to  compute  the  $(1-\alpha)100\%$ confidence interval.
+
 ##a
 $H_0 : \mu=120$ versus $H_1 : \mu < 120 ; \bar{y}=114.2,n=25, \sigma =18, \alpha= 0.08$
 ```{r}
@@ -62,8 +67,6 @@ alpha <- 0.06
 (z_alpha_test <- qnorm(c(alpha/2,1-alpha/2)))*(sigma/sqrt(n))+mu
 ```
 
-#6.2.3
-
 #6.2.4
 Population mean 32,500.
 15 sample drivers 33,800 on new tires. Assume $\sigma=4000$ for both cases.
@@ -78,8 +81,6 @@ alpha <- 0.05
 mu
 (z_alpha_test <- qnorm(1-alpha))*(sigma/sqrt(n))+mu
 ```
-
-#6.2.9
 
 #6.2.10
 Average blood pressure $\mu = 120, \sigma = 12$.
@@ -102,29 +103,139 @@ alpha <- 0.01
 
 This data shows a significant increase in heartrate with 99% confidence.
 
-#6.3.1
-
 #6.3.2
+$67$\% A/J are right-pawed.  
+Same protocol on $n=35$ mice of strain A/HeJ, $18/35$ right-pawed.
+Test if A/HeJ mice were significantly different than A/J strains. Use $\alpha = 0.05$.
+
+First check the inequality
+$$
+0 < np_0-3\sqrt{np_0(1-p_0)}<np_0+3\sqrt{np_0(1-p_0)}<n
+$$
+
+```{r}
+n <- 35
+p_0 <- .67
+0
+n*p_0-3*sqrt(n*p_0*(1-p_0))
+n*p_0+3*sqrt(n*p_0*(1-p_0))
+n
+```
+
+```{r}
+n <- 35
+k <- 18
+p_0 <- .67
+alpha <- 0.05
+(z <- (k-n*p_0)/(sqrt(n*p_0*(1-p_0))))
+(z_alpha <- qnorm(c(alpha/2,1-alpha/2)))
+```
 
 #6.3.4
 
-#6.3.7
+Suppose $H_0:p=0.45$ is to be tested against $H_1:p>0.45$ at $\alpha=0.14$ level where $p=P(i \text{th trial ends in success})$ If sample size is $n=200$ what is smallest number of successes that will cause $H_0$ to be rejected?
 
-#6.3.9
+```{r}
+n <- 200
+k <- c(79,80)
+p_0 <- .45
+alpha <- 0.14
+(z <- (k-n*p_0)/(sqrt(n*p_0*(1-p_0))))
+(z_alpha <- qnorm(c(alpha/2,1-alpha/2)))
+```
 
 #6.4.2
 
-#6.4.3
+Carry out the details to verify the decision rule
+change cited on p. 364 in connection with Figure 6.4.6
+
+???
 
 #6.4.6
 
+$n=36, \sigma = 8$ for testing $H_0 : \mu = 60$ versus $H_1 : \mu \neq 60$ at $\alpha=0.07$.  
+Intends to reject $H_0$ if $\bar{y}$ falls in critical region region $(60-\bar{y}^*,6-+\bar{y}^*)$
+
+(a) Find $\bar{y}^*$
+
+```{r}
+mu <- 60
+n <- 36
+sigma <- 8
+alpha <- 0.07
+(z_alpha_norm <- qnorm(c(alpha/2,1-alpha/2)))
+(z_alpha_test <- qnorm(c(alpha/2,1-alpha/2)))*(sigma/sqrt(n))
+```
+
+(b) Power of test when $\mu=62$, true mean $u_t=60$?  
+First calculate $\beta$.
+```{r}
+mu <- 62
+muTrue <- 60
+n <- 36
+sigma <- 8
+alpha <- 0.07
+(Z_alpha <- (mu-muTrue)/(sigma/sqrt(n)))
+(beta <- pnorm(Z_alpha))
+(power <- 1-beta)
+```
+
+(c) Power of test when $\mu=62$ if critical region defined correctly?
+
+???
+
 #6.4.8
+Will $n=45$ be a sufficiently large sample to test $H_0: \mu = 10$ versus $H_1 : \mu \neq 10$ at $\alpha=0.05$ if experimenter
+wants $\beta < 0.20$ when $\mu = 12$? Assume $\sigma=4$. 
+
+Using the guidelines from Ex. 6.4.1:
+$$
+P(|Z| \geq 1.64)=0.05 \Rightarrow P(Z \geq 1.64)=0.025 \\
+\bar{y}^*=10+1.64\frac{4}{\sqrt{n}}
+$$
+Then, using power equation,
+$$
+1-\beta = P(\text{reject }H_0 | H_1 \text{true})=P(\bar{Y}\geq \bar{y}^*|\mu=12)=0.80
+$$
+Now, find associated $Z_\alpha$
+```{r}
+beta <- 0.20
+qnorm(beta)
+```
+So,
+$$
+\begin{aligned}
+\bar{y}^*&=12-0.84\frac{4}{\sqrt{n}}\\
+10+1.64\frac{4}{\sqrt{n}}&=12-0.84\frac{4}{\sqrt{n}} \\
+(1.64+0.84)\frac{4}{\sqrt{n}}&=2\\
+n&=\Big(\frac{4*2.48}{2}\Big)^2 \approx 24.6
+\end{aligned}
+$$
+
+Yes, a sample of $n=40$ will be large enough to guarantee a power of $0.80$.
 
 #6.4.12
+Urn contains $n=10$ chips with $w=$ no. white and $n-w=$ no. red.  
+$H_0:$ exactly half chips red, $H_1:$ more than half red.
+Draw $3$ chips and reject $H_0$ if two or more white. Find $\alpha$. Then find $\beta$ when urn is $60%$ white and $70%$ white.
 
-#6.4.13
+$$
+\alpha=P(\bar{Y} > \bar{y}^* | H_0 \text{ true})
+$$
+
+Therefore, $\alpha$ will be the probability that there are actually 5 white in total given either 2 or 3 out of the initial 3 being white. So, this probability is the sum of the probabilities of 2 and 3 out of the remaining 7 chips being white.
+
+```{r}
+(alpha <- sum(dbinom(c(2,3),7,prob=.5)))
+(beta60 <- 1-sum(dbinom(c(2,3),7,prob=.6)))
+(beta70 <- 1-sum(dbinom(c(2,3),7,prob=.7)))
+```
 
 #6.4.14
+Sample size $n=1$ taken from pdf $f_Y(y)=(\theta+1)y^\theta, 0 \leq y \leq 1$.
+Reject $H_0: \theta=1$ for $H_1:\theta > 1$ if $y \geq 0.90$. What is test's level of significance?
+
+
 
 
 

@@ -1,0 +1,679 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Max Greene HW10},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Max Greene HW10}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\section{6.2.1}\label{section}
+
+In problem 6.2.1 in the textbook, use the given information to compute
+the \((1-\alpha)100\%\) confidence interval.
+
+\subsection{a}\label{a}
+
+\(H_0 : \mu=120\) versus
+\(H_1 : \mu < 120 ; \bar{y}=114.2,n=25, \sigma =18, \alpha= 0.08\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\DecValTok{120} 
+\NormalTok{y_bar <-}\StringTok{ }\FloatTok{114.2}
+\NormalTok{n <-}\StringTok{ }\DecValTok{25}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{18}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.08}
+\NormalTok{(z <-}\StringTok{ }\NormalTok{(y_bar}\OperatorTok{-}\NormalTok{mu)}\OperatorTok{/}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.611111
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.08}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.405072
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.08}\NormalTok{))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 114.9417
+\end{verbatim}
+
+\subsection{b}\label{b}
+
+\(H_0 : \mu=42.9\) versus
+\(H_1 : \mu \ne 42.9 ; \bar{y}=45.1,n=16, \sigma =3.2, \alpha= 0.01\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\FloatTok{42.9}
+\NormalTok{y_bar <-}\StringTok{ }\FloatTok{45.1}
+\NormalTok{n <-}\StringTok{ }\DecValTok{16}
+\NormalTok{sigma <-}\StringTok{ }\FloatTok{3.2}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.01}
+\NormalTok{(z <-}\StringTok{ }\NormalTok{(y_bar}\OperatorTok{-}\NormalTok{mu)}\OperatorTok{/}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.75
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -2.575829  2.575829
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 40.83934 44.96066
+\end{verbatim}
+
+\subsection{c}\label{c}
+
+\(H_0 : \mu=14.2\) versus
+\(H_1 : \mu > 14.2 ; \bar{y}=15.8 , n=9, \sigma = 4.1 , \alpha= 0.13\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\FloatTok{14.2}
+\NormalTok{y_bar <-}\StringTok{ }\FloatTok{15.8}
+\NormalTok{n <-}\StringTok{ }\DecValTok{9}
+\NormalTok{sigma <-}\StringTok{ }\FloatTok{4.1}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.13}
+\NormalTok{(z <-}\StringTok{ }\NormalTok{(y_bar}\OperatorTok{-}\NormalTok{mu)}\OperatorTok{/}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.170732
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.126391
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 15.7394
+\end{verbatim}
+
+\section{6.2.2}\label{section-1}
+
+Random sample, 22 diagnosed.
+
+Past ADD score \(\mu_{ADD} = 95, \sigma_{ADD} = 15\).
+
+Use \(\alpha = 0.06\). For what values of \(\bar{y}\) should \(H_0\) be
+rejected if \(H_1\) is two-sided?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\DecValTok{95}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{15}
+\NormalTok{n <-}\StringTok{ }\DecValTok{22}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.06}
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.880794  1.880794
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  88.9852 101.0148
+\end{verbatim}
+
+\section{6.2.4}\label{section-2}
+
+Population mean 32,500. 15 sample drivers 33,800 on new tires. Assume
+\(\sigma=4000\) for both cases. Can the company claim a statisticaly
+significant difference at \(\alpha=0.05\)?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\DecValTok{32500}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{4000}
+\NormalTok{n <-}\StringTok{ }\DecValTok{15}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.05}
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.644854
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 32500
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 34198.8
+\end{verbatim}
+
+\section{6.2.10}\label{section-3}
+
+Average blood pressure \(\mu = 120, \sigma = 12\). Sample of \(n=50\)
+women, \(\mu = 125.2\).
+
+\(H_0:\mu_{exam}\neq\mu_{norm}\) , \(H_1:\mu_{exam}=\mu_{norm}\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\DecValTok{120}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{12}
+\NormalTok{n <-}\StringTok{ }\DecValTok{50}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.05}
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.644854
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 122.7914
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.01}
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.326348
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}\OperatorTok{+}\NormalTok{mu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 123.9479
+\end{verbatim}
+
+This data shows a significant increase in heartrate with 99\%
+confidence.
+
+\section{6.3.2}\label{section-4}
+
+\(67\)\% A/J are right-pawed.\\
+Same protocol on \(n=35\) mice of strain A/HeJ, \(18/35\) right-pawed.
+Test if A/HeJ mice were significantly different than A/J strains. Use
+\(\alpha = 0.05\).
+
+First check the inequality \[
+0 < np_0-3\sqrt{np_0(1-p_0)}<np_0+3\sqrt{np_0(1-p_0)}<n
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\DecValTok{35}
+\NormalTok{p_}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\NormalTok{.}\DecValTok{67}
+\DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\OperatorTok{-}\DecValTok{3}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{p_}\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 15.10455
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{p_}\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 31.79545
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 35
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\DecValTok{35}
+\NormalTok{k <-}\StringTok{ }\DecValTok{18}
+\NormalTok{p_}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\NormalTok{.}\DecValTok{67}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.05}
+\NormalTok{(z <-}\StringTok{ }\NormalTok{(k}\OperatorTok{-}\NormalTok{n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{p_}\DecValTok{0}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.959152
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.959964  1.959964
+\end{verbatim}
+
+\section{6.3.4}\label{section-5}
+
+Suppose \(H_0:p=0.45\) is to be tested against \(H_1:p>0.45\) at
+\(\alpha=0.14\) level where \(p=P(i \text{th trial ends in success})\)
+If sample size is \(n=200\) what is smallest number of successes that
+will cause \(H_0\) to be rejected?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\DecValTok{200}
+\NormalTok{k <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{79}\NormalTok{,}\DecValTok{80}\NormalTok{)}
+\NormalTok{p_}\DecValTok{0}\NormalTok{ <-}\StringTok{ }\NormalTok{.}\DecValTok{45}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.14}
+\NormalTok{(z <-}\StringTok{ }\NormalTok{(k}\OperatorTok{-}\NormalTok{n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n}\OperatorTok{*}\NormalTok{p_}\DecValTok{0}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{p_}\DecValTok{0}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.563472 -1.421338
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.475791  1.475791
+\end{verbatim}
+
+\section{6.4.2}\label{section-6}
+
+Carry out the details to verify the decision rule change cited on p.~364
+in connection with Figure 6.4.6
+
+???
+
+\section{6.4.6}\label{section-7}
+
+\(n=36, \sigma = 8\) for testing \(H_0 : \mu = 60\) versus
+\(H_1 : \mu \neq 60\) at \(\alpha=0.07\).\\
+Intends to reject \(H_0\) if \(\bar{y}\) falls in critical region region
+\((60-\bar{y}^*,6-+\bar{y}^*)\)
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Find \(\bar{y}^*\)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\DecValTok{60}
+\NormalTok{n <-}\StringTok{ }\DecValTok{36}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{8}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.07}
+\NormalTok{(z_alpha_norm <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.811911  1.811911
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(z_alpha_test <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}\OperatorTok{*}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -2.415881  2.415881
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Power of test when \(\mu=62\), true mean \(u_t=60\)?\\
+  First calculate \(\beta\).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\DecValTok{62}
+\NormalTok{muTrue <-}\StringTok{ }\DecValTok{60}
+\NormalTok{n <-}\StringTok{ }\DecValTok{36}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{8}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.07}
+\NormalTok{(Z_alpha <-}\StringTok{ }\NormalTok{(mu}\OperatorTok{-}\NormalTok{muTrue)}\OperatorTok{/}\NormalTok{(sigma}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(beta <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(Z_alpha))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9331928
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(power <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\NormalTok{beta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0668072
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Power of test when \(\mu=62\) if critical region defined correctly?
+\end{enumerate}
+
+???
+
+\section{6.4.8}\label{section-8}
+
+Will \(n=45\) be a sufficiently large sample to test \(H_0: \mu = 10\)
+versus \(H_1 : \mu \neq 10\) at \(\alpha=0.05\) if experimenter wants
+\(\beta < 0.20\) when \(\mu = 12\)? Assume \(\sigma=4\).
+
+Using the guidelines from Ex. 6.4.1: \[
+P(|Z| \geq 1.64)=0.05 \Rightarrow P(Z \geq 1.64)=0.025 \\
+\bar{y}^*=10+1.64\frac{4}{\sqrt{n}}
+\] Then, using power equation, \[
+1-\beta = P(\text{reject }H_0 | H_1 \text{true})=P(\bar{Y}\geq \bar{y}^*|\mu=12)=0.80
+\] Now, find associated \(Z_\alpha\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beta <-}\StringTok{ }\FloatTok{0.20}
+\KeywordTok{qnorm}\NormalTok{(beta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.8416212
+\end{verbatim}
+
+So, \[
+\begin{aligned}
+\bar{y}^*&=12-0.84\frac{4}{\sqrt{n}}\\
+10+1.64\frac{4}{\sqrt{n}}&=12-0.84\frac{4}{\sqrt{n}} \\
+(1.64+0.84)\frac{4}{\sqrt{n}}&=2\\
+n&=\Big(\frac{4*2.48}{2}\Big)^2 \approx 24.6
+\end{aligned}
+\]
+
+Yes, a sample of \(n=40\) will be large enough to guarantee a power of
+\(0.80\).
+
+\section{6.4.12}\label{section-9}
+
+Urn contains \(n=10\) chips with \(w=\) no. white and \(n-w=\) no.
+red.\\
+\(H_0:\) exactly half chips red, \(H_1:\) more than half red. Draw \(3\)
+chips and reject \(H_0\) if two or more white. Find \(\alpha\). Then
+find \(\beta\) when urn is \(60%\) white and \(70%\) white.
+
+\[
+\alpha=P(\bar{Y} > \bar{y}^* | H_0 \text{ true})
+\]
+
+Therefore, \(\alpha\) will be the probability that there are actually 5
+white in total given either 2 or 3 out of the initial 3 being white. So,
+this probability is the sum of the probabilities of 2 and 3 out of the
+remaining 7 chips being white.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(alpha <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{dbinom}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DecValTok{7}\NormalTok{,}\DataTypeTok{prob=}\NormalTok{.}\DecValTok{5}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4375
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(beta60 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{dbinom}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DecValTok{7}\NormalTok{,}\DataTypeTok{prob=}\NormalTok{.}\DecValTok{6}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7290496
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(beta70 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{dbinom}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DecValTok{7}\NormalTok{,}\DataTypeTok{prob=}\NormalTok{.}\DecValTok{7}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8777548
+\end{verbatim}
+
+\section{6.4.14}\label{section-10}
+
+Sample size \(n=1\) taken from pdf
+\(f_Y(y)=(\theta+1)y^\theta, 0 \leq y \leq 1\). Reject \(H_0: \theta=1\)
+for \(H_1:\theta > 1\) if \(y \geq 0.90\). What is test's level of
+significance?
+
+
+\end{document}
