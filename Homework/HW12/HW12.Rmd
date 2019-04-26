@@ -1,5 +1,5 @@
 ---
-title: "Max Greene Probstat HW12"
+title: "Max Greene Prob & Stat HW12"
 output: pdf_document
 ---
 
@@ -51,7 +51,7 @@ $$
 The $n+m-2$ degrees of freedom will provide the greater accuracy in this case because of the higher degrees of freedom. Therefore, it will be advantagous and provide a more reliable test to use the $n+m-2$ degrees of freedom.
 
 #9.3.4
-By theorem 9.3.1, the test $H_0: \sigma^2_X=\sigma^2_Y$ vs $H_1: \sigma^2_X \neq \sigma^2_Y$ will reject $H_0$ if $\frac{s^2_Y}{s^2_X}$ is either $\leq F_{\alpha/2,m-1,n-1}$ or $\geq F_{1-\alpha/2,m-1,n-1}
+By theorem 9.3.1, the test $H_0: \sigma^2_X=\sigma^2_Y$ vs $H_1: \sigma^2_X \neq \sigma^2_Y$ will reject $H_0$ if $\frac{s^2_Y}{s^2_X}$ is either $\leq F_{\alpha/2,m-1,n-1}$ or $\geq F_{1-\alpha/2,m-1,n-1}$
 
 ```{r}
 Sx2 <- 5.67^2;Sy2 <- 3.18^2;
@@ -99,13 +99,44 @@ x_bar-y_bar+temp
 ```
 
 #9.5.6 
-
+95% confidence interval for $\sigma^2_X/\sigma^2_Y$ based on case study in 9.2.1.
+```{r}
+alpha <- 0.05
+s2x <- .0002103; s2y <- .0000955; ratio <- s2x/s2y;
+ratio*qf(c(alpha/2,1-alpha/2),m-1,n-1);
+```
 
 #9.5.10 
+Construct an 80% confidence intervcal for difference $p_M-p_W$ in the nightmare frequency data summarized in Case Study 9.4.2.
 
+```{r}
+x <- 55;y <- 60;n <- 160;m <- 192;
+zsqrt <- qnorm(c(0.1,0.9))*sqrt((x/n)*(1-x/n)/n+(y/m)*(1-y/m)/m)
+x/n-y/m+zsqrt
+```
 
 #13.3.2 
+Uae a paired $t$ test with $\alpha=0.05$ to compare numbers of trials needed to learn depth perception for Mothered and Unmothered lambs in Question 8.2.6.
 
+```{r}
+x <- c(2,3,5,3,2,1,1,5,3,1,7,3,5)
+y <- c(3,11,10,5,5,4,2,7,5,4,8,12,7)
+d <- x-y
+meanD <- mean(d); sdD <- sd(d); n <- length(x);
+(t <- meanD/(sdD/sqrt(n)))
+qt(c(0.05,0.95),df=n-1)
+pt(t,df=n-1)
+```
+These samples, $x$ and $y$, are significantly differnt since their $t$ value is larger than the upper bound of the 90% confidence interval. Specifically, the differences were in the 99.96th percentile of significance given the null hypothesis $\mu_X=\mu_Y$ was true.
 
 #13.3.6
+```{r}
+d <- c(0.8,1.9,-0.4,1.2,0.2,-0.4,-0.6,0.4,0.4,1.2)
+meanD <- mean(d); sdD <- sd(d); n <- length(d);
+(t <- meanD/(sdD/sqrt(n)))
+qt(c(0.025,0.975),df=n-1)
+pt(t,df=n-1)
+```
+This difference is not significant with $\alpha=0.025$. There is a (100-94.95)% chance that data this extreme would occus if the null hypothesis, that the two population means were equal, were to be true.
+
 
