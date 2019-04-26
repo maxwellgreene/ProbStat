@@ -4,34 +4,99 @@ output: pdf_document
 ---
 
 #9.2.2 
-
+```{r}
+x_bar <- -4.7; Sx <- 7.05; Sx2 <- Sx^2
+y_bar <- -1.6; Sy <- 5.63; Sy2 <- Sy^2
+W <- (x_bar-y_bar-(0))/(sqrt(Sx2/27+Sy2/27))
+theta_hat <- Sx2/Sy2
+df <- round((theta_hat+1)^2/((1/(27-1))*(theta_hat^2+1)))
+W
+qt(c(0.05,0.95),df=df)
+```
+Yes, they are significantly different. $W$ is more extreme than the $\alpha = 0.05$ confidence interval in the student t distribution with $df=50$
 
 #9.2.12 
-
+```{r}
+x_bar <- 81.6; Sx2 <- 17.6
+y_bar <- 79.9; Sy2 <- 22.9
+W <- (x_bar-y_bar-(0))/(sqrt(Sx2/10+Sy2/20))
+#theta_hat <- Sx2/Sy2
+#df<-round((theta_hat+1)^2/((theta_hat^2/(10-1))+(20/(20*19)^2)))
+W
+```
 
 #9.2.14 
+Prove that the $Z$ ratio given in Equation 9.2.1 has a standard normal distribution. 
 
+$$
+Z = \frac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}
+{\sqrt{\frac{\sigma^2_X}{n}+\frac{\sigma^2_Y}{m}}}
+$$
+We know that $\bar{X}, \bar{Y}$ are normal by the mean value theorem because their individual values come from a normal distribution. Adding to and dividing by constants does not change the normal nature of the distribution. We must now show that the expected value and variance are that of a standard normal distribution.
 
-#9.2.18 
+$$
+\begin{aligned}
+E(Z)&=\int_{-\infty}^\infty xZ(x)dx+\int_{-\infty}^\infty yZ(y)dx\\
+&=\int_{-\infty}^\infty x\frac{\bar{X}-\mu_X}{\sqrt{\frac{\sigma^2_X}{n}+\frac{\sigma^2_Y}{m}}}dx+
+\int_{-\infty}^\infty y\frac{\bar{Y}-\mu_Y}{\sqrt{\frac{\sigma^2_X}{n}+\frac{\sigma^2_Y}{m}}}dx=0
+\end{aligned}
+$$
+Since $E(\bar{X}-\mu_X),E(\bar{Y}-\mu_Y)=0$.
 
+$$
+Var(Z)=E(Z^2)-E(Z)^2=E(Z^2)
+$$
 
-#9.3.4 
+#9.2.18
+The $n+m-2$ degrees of freedom will provide the greater accuracy in this case because of the higher degrees of freedom. Therefore, it will be advantagous and provide a more reliable test to use the $n+m-2$ degrees of freedom.
 
+#9.3.4
+By theorem 9.3.1, the test $H_0: \sigma^2_X=\sigma^2_Y$ vs $H_1: \sigma^2_X \neq \sigma^2_Y$ will reject $H_0$ if $\frac{s^2_Y}{s^2_X}$ is either $\leq F_{\alpha/2,m-1,n-1}$ or $\geq F_{1-\alpha/2,m-1,n-1}
 
-#9.3.6 
+```{r}
+Sx2 <- 5.67^2;Sy2 <- 3.18^2;
+data <- data.frame(cage=(1:20),WG=c(22.8,10.2,20.8,27.0,19.2,9.0,14.2,19.8,14.5,14.8,23.5,31.0,19.5,26.2,26.5,25.2,24.5,23.8,27.8,22.0))
+Sy2/Sx2
+qf(c(0.05/2,1-0.05/2),9,9)
+```
+No, the variances are not significantly different.
 
+#9.3.6
+If the variables are independent and normally distribution with the same standard deviation then the two-sample $t$ test would be the correct test to use for this data.
 
-#9.3.8 
+#9.3.8
+Theorem 9.2.2 is best used for two independent random samples from normal distributions with the same standard deviations to test for differences in means. Theorem 9.2.3, on the other hand, is best used for tow independent random samples from normal distributions with possibly differing means and differing standard deviations to test for differences in means.  
+The difference between this test is that the samples in 9.2.3 can have separate sd's and the theorem gives a way to handle this case. 
 
+Given that the standard deviations of these populations do not seem to be assocaited in any way and could be completely independent, theorem 9.2.3 is more appropriate for deciding whether the difference between means is significant.
 
-#9.4.2 
+#9.4.2
+```{r}
+x <- 66;y <- 93;n <- 846/2;m <- 846/2;
+pe <- (x+y)/(n+m)
+(z <- (x/n-y/m)/sqrt((pe*(1-pe))/n+(pe*(1-pe))/m))
+qnorm(0.05)
+```
+The diet significantly decreased the chances of arteriosclerosis since $z \leq -z_\alpha$.
 
-
-#9.4.6 
-
+#9.4.6
+```{r}
+n <- 100;m <- 100;x <- 60;y <- 48;
+pe <- (x+y)/(n+m)
+(z <- (x/n-y/m)/sqrt((pe*(1-pe))/n+(pe*(1-pe))/m))
+pnorm(z)
+```
+the $p$ value associated with this data is $0.9556$ or $95.56$%
 
 #9.5.2 
-
+```{r}
+dome <- c(100,58.6,93.5,83.6,84.1)
+noDome <- c(76.4,84.2,96.5,88.8,79.1,83.6)
+sp <- 11.2; x_bar <- mean(dome); y_bar <- mean(noDome);
+n <- length(dome); m <- length(noDome); alpha <- 0.05;
+temp <- c(qt(alpha/2,n+m-2)*sp*sqrt(1/n+1/m),-qt(alpha/2,n+m-2)*sp*sqrt(1/n+1/m))
+x_bar-y_bar+temp
+```
 
 #9.5.6 
 
